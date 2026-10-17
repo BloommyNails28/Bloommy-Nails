@@ -153,7 +153,7 @@ h2{font-size:2.4rem}
 <div class="notice"><strong>Importante</strong>
 <p>Al enviar tu reserva, verificaremos el horario y te escribiremos a tu número para solicitar una seña del 50% y asegurar tu lugar.</p>
 <p>Los términos de reserva están en las historias destacadas de nuestro Instagram.</p>
-<p>Hablamos pronto 🤍</p></div>
+<p>Hablamos pronto <svg class="heart" viewBox="0 0 24 24" width="18" height="18" role="img" aria-label="corazón blanco" style="vertical-align:-3px"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ffffff" stroke="#c4b49a" stroke-width="1.3" stroke-linejoin="round"/></svg></p></div>
 <form id="f">
 <input id="n" placeholder="Tu nombre" required>
 <fieldset><legend>Elige hasta 3 servicios</legend><div id="list"></div></fieldset>
@@ -167,8 +167,10 @@ h2{font-size:2.4rem}
 
 <footer><span class="lg ftr-lg" role="img" aria-label="Bloommy"></span>© 2026 Bloommy. Todos los derechos reservados.</footer>
 
+<script>document.write('<script src="config.js?v='+Date.now()+'"><\/script>')</script>
 <script>
-var WHATSAPP="59895340907";
+var C=window.CONFIG||{};
+var WHATSAPP=C.whatsapp||"59895340907";
 var MAX=3;
 var G=[
 ["Servicios",[["Esmaltado semipermanente",700,60],["Capping",800,90],["Soft gel",900,90]]],
@@ -176,10 +178,15 @@ var G=[
 ["Retiros",[["Retiro de servicio nuestro",200,30],["Retiro de servicio de otro salón",350,30]]],
 ["Diseños adicionales (más de 2 uñas)",[["Diseños básicos",50,15],["Diseños intermedios",100,20],["Diseños elaborados",200,30]]]
 ];
-var SCH={0:[],1:[13,15,17,19],2:[13,15,17,19],3:[10,15,17,19],4:[11,13,15,17,19],5:[14],6:[12,14]};
+function tmin(x){if(typeof x==="string"){var a=x.split(":");return +a[0]*60+(+a[1]||0)}return x*60}
+var DEFSCH={0:[],1:[13,15,17,19],2:[13,15,17,19],3:[10,15,17,19],4:[11,13,15,17,19],5:[14],6:[12,14]};
+var SCH={};for(var k=0;k<7;k++){var src=(C.horarios&&C.horarios[k])||(C.horarios&&k in C.horarios?[]:DEFSCH[k]);SCH[k]=src.map(function(v){return tmin(v)/60})}
 var list=document.getElementById("list"),sum=document.getElementById("sum"),dI=document.getElementById("d"),sl=document.getElementById("slots");
-var BOOKINGS=[];try{BOOKINGS=JSON.parse(document.getElementById("state").textContent||"[]")}catch(e){}
-var LAST=21*60;
+var BOOKINGS=[];(C.ocupado||[]).forEach(function(o){
+if(!o||!o.fecha)return;
+if(o.todoElDia){BOOKINGS.push({d:o.fecha,s:0,m:1440});return}
+var a=tmin(o.desde),b=tmin(o.hasta);if(b>a)BOOKINGS.push({d:o.fecha,s:a,m:b-a})});
+var LAST=(C.ultimoInicio!=null?C.ultimoInicio:21)*60;
 function ceil30(m){return Math.ceil(m/30)*30}
 function slotsFor(ds,dow){
 var bl=BOOKINGS.filter(function(b){return b.d===ds}).map(function(b){return {s:b.s,e:ceil30(b.s+b.m)}}).sort(function(x,y){return x.s-y.s});
@@ -245,7 +252,9 @@ var t=totals();
 if(!t.c.length){sum.textContent="Elige al menos un servicio para reservar.";sum.scrollIntoView({block:"center"});return}
 if(!dI.value||sel===null){sum.textContent="Elige una fecha y un horario para reservar.";sl.scrollIntoView({block:"center"});return}
 var st=sel,end=st+t.tot;
-var msg="Hola!🤍, soy "+document.getElementById("n").value+". Me gustaria reservar una cita en Bloommy.\n\nServicios:\n"+t.c.map(function(x){return "- "+x[0]+" ($"+x[1]+")"}).join("\n")+"\n\nFecha: "+dmy(parseD(dI.value))+"\nHora de inicio: "+hm(st)+"\nDuración total aprox.: "+fmt(t.tot)+" \nTotal: $"+t.price;
+var TPL=C.mensaje||"Hola, soy {nombre}. Quiero reservar una cita en Bloommy.\n\nServicios:\n{servicios}\n\nFecha: {fecha}\nHora de inicio: {hora}\nDuración total aprox.: {duracion} (termina a las {fin})\nTotal: ${total}";
+var vals={nombre:document.getElementById("n").value,servicios:t.c.map(function(x){return "- "+x[0]+" ($"+x[1]+")"}).join("\n"),fecha:dmy(parseD(dI.value)),hora:hm(st),duracion:fmt(t.tot),fin:hm(end),total:t.price};
+var msg=TPL;Object.keys(vals).forEach(function(k){msg=msg.split("{"+k+"}").join(vals[k])});
 var u="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg);
 var w=null;try{w=window.open(u,"_blank")}catch(x){}
 if(!w){sum.textContent="";var a=document.createElement("a");a.href=u;a.target="_blank";a.rel="noopener";a.className="btn";a.textContent="Toca aquí para abrir WhatsApp con tu reserva";sum.appendChild(a)}
