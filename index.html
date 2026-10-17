@@ -187,13 +187,23 @@ if(!o||!o.fecha)return;
 if(o.todoElDia){BOOKINGS.push({d:o.fecha,s:0,m:1440});return}
 var a=tmin(o.desde),b=tmin(o.hasta);if(b>a)BOOKINGS.push({d:o.fecha,s:a,m:b-a})});
 var LAST=(C.ultimoInicio!=null?C.ultimoInicio:21)*60;
-function ceil30(m){return Math.ceil(m/30)*30}
+var GAP=(C.descanso!=null?C.descanso:15);
 function slotsFor(ds,dow){
-var bl=BOOKINGS.filter(function(b){return b.d===ds}).map(function(b){return {s:b.s,e:ceil30(b.s+b.m)}}).sort(function(x,y){return x.s-y.s});
+var bl=BOOKINGS.filter(function(b){return b.d===ds}).map(function(b){return {s:b.s,e:b.s+b.m+GAP}}).sort(function(x,y){return x.s-y.s});
 var out=[];
-SCH[dow].forEach(function(h){var s=h*60;bl.forEach(function(b){if(s>=b.s&&s<b.e)s=b.e});
+SCH[dow].forEach(function(h){
+var s=h*60,taken=false,moved=true,guard=0;
+while(moved&&!taken&&guard++<50){
+moved=false;
+for(var i=0;i<bl.length;i++){
+var b=bl[i];
+if(b.s===s){taken=true;break}
+if(s>b.s&&s<b.e){s=b.e;moved=true}
+}}
+if(taken||s>LAST)return;
+if(out.some(function(o){return o.s===s}))return;
 var nx=Infinity;bl.forEach(function(b){if(b.s>s&&b.s<nx)nx=b.s});
-if(s<=LAST&&!out.some(function(o){return o.s===s}))out.push({s:s,nx:nx})});
+out.push({s:s,nx:nx})});
 return out.sort(function(x,y){return x.s-y.s})}
 var sel=null;
 function fmt(m){var h=Math.floor(m/60),r=m%60;return (h?h+" hr":"")+(h&&r?" ":"")+(r?r+" min":"")}
@@ -230,7 +240,7 @@ if(!SCH[d.getDay()].length){sl.innerHTML='<span class="hint">Los domingos no ate
 var lim=Date.now()+864e5,any=false,tot=totals().tot;
 slotsFor(dI.value,d.getDay()).forEach(function(o){
 var b=document.createElement("button");b.type="button";b.className="slot";b.textContent=hm(o.s);
-var ok=new Date(d.getFullYear(),d.getMonth(),d.getDate(),0,o.s).getTime()>=lim&&o.s+tot<=o.nx;
+var ok=new Date(d.getFullYear(),d.getMonth(),d.getDate(),0,o.s).getTime()>=lim&&o.s+tot+GAP<=o.nx;
 b.disabled=!ok;if(ok)any=true;
 if(ok&&keep===o.s){sel=o.s;b.classList.add("on")}
 b.addEventListener("click",function(){sel=o.s;sl.querySelectorAll(".slot").forEach(function(x){x.classList.remove("on")});b.classList.add("on");update()});
