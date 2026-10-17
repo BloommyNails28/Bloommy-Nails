@@ -245,7 +245,7 @@ var t=totals();
 if(!t.c.length){sum.textContent="Elige al menos un servicio para reservar.";sum.scrollIntoView({block:"center"});return}
 if(!dI.value||sel===null){sum.textContent="Elige una fecha y un horario para reservar.";sl.scrollIntoView({block:"center"});return}
 var st=sel,end=st+t.tot;
-var msg="Hola!🤍, soy "+document.getElementById("n").value+". Me gustaria reservar una cita en Bloommy.\n\nServicios:\n"+t.c.map(function(x){return "- "+x[0]+" ($"+x[1]+")"}).join("\n")+"\n\nFecha: "+dmy(parseD(dI.value))+"\nHora de inicio: "+hm(st)+"\nDuración total aprox.: "+fmt(t.tot)+" \nTotal: $"+t.price;
+var msg="Hola!🤍</p></div>, soy "+document.getElementById("n").value+". Me gustaria reservar una cita en Bloommy.\n\nServicios:\n"+t.c.map(function(x){return "- "+x[0]+" ($"+x[1]+")"}).join("\n")+"\n\nFecha: "+dmy(parseD(dI.value))+"\nHora de inicio: "+hm(st)+"\nDuración total aprox.: "+fmt(t.tot)+" \nTotal: $"+t.price;
 var u="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg);
 var w=null;try{w=window.open(u,"_blank")}catch(x){}
 if(!w){sum.textContent="";var a=document.createElement("a");a.href=u;a.target="_blank";a.rel="noopener";a.className="btn";a.textContent="Toca aquí para abrir WhatsApp con tu reserva";sum.appendChild(a)}
