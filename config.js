@@ -13,7 +13,7 @@ window.CONFIG = {
   //    Estas palabras se reemplazan solas con los datos de la clienta:
   //    {nombre} {servicios} {fecha} {hora} {duracion} {fin} {total}
   //    \n significa "salto de línea".
-  mensaje: "Hola, soy {nombre}. Quiero reservar una cita en Bloommy.\n\nServicios:\n{servicios}\n\nFecha: {fecha}\nHora de inicio: {hora}\nDuración total aprox.: {duracion} (termina a las {fin})\nTotal: ${total}",
+  mensaje: "Hola🤍, soy {nombre}. Me gustaria reservar una cita en Bloommy.\n\nServicios:\n{servicios}\n\nFecha: {fecha}\nHora de inicio: {hora}\nDuración total aprox.: {duracion} \nTotal: ${total}",
 
   // 3) TUS HORARIOS POR DÍA (formato 24 horas)
   //    0 = domingo, 1 = lunes, 2 = martes, 3 = miércoles,
