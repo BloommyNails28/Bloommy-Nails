@@ -41,7 +41,7 @@ window.CONFIG = {
   //    Ejemplos (sin las // funcionan):
   //      { fecha: "2026-10-22", desde: "15:00", hasta: "17:15" },
   //      { fecha: "2026-10-24", todoElDia: true },
-  ocupado: [  { fecha: "2026-10-19", desde: "19:00", hasta: "20:00" },
-ocupado: [  { fecha: "2026-10-19", desde: "17:00", hasta: "20:00" },
+  // ocupado: [  { fecha: "2026-10-19", desde: "19:00", hasta: "20:00" },
+// ocupado: [  { fecha: "2026-10-19", desde: "17:00", hasta: "20:00" },
   ]
 };
