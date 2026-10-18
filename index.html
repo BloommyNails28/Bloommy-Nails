@@ -190,16 +190,17 @@ var LAST=(C.ultimoInicio!=null?C.ultimoInicio:21)*60;
 var GAP=(C.descanso!=null?C.descanso:15);
 function slotsFor(ds,dow){
 var bl=BOOKINGS.filter(function(b){return b.d===ds}).map(function(b){return {s:b.s,e:b.s+b.m+GAP}}).sort(function(x,y){return x.s-y.s});
-var out=[];
+var out=[],shift=0;
 SCH[dow].forEach(function(h){
-var s=h*60,taken=false,moved=true,guard=0;
+var s=h*60+shift,taken=false,moved=true,guard=0;
 while(moved&&!taken&&guard++<50){
 moved=false;
 for(var i=0;i<bl.length;i++){
 var b=bl[i];
-if(b.s===s){taken=true;break}
-if(s>b.s&&s<b.e){s=b.e;moved=true}
+if(s===b.s){taken=true;break}
+if(s>b.s&&s<b.e){s=b.e;moved=true;break}
 }}
+shift=s-h*60;
 if(taken||s>LAST)return;
 if(out.some(function(o){return o.s===s}))return;
 var nx=Infinity;bl.forEach(function(b){if(b.s>s&&b.s<nx)nx=b.s});
