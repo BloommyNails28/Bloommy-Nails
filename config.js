@@ -44,6 +44,16 @@ window.CONFIG = {
 ocupado: [  
    { fecha: "2026-10-19", desde: "19:00", hasta: "20:00" },
    { fecha: "2026-12-15", todoElDia: true },
-{ fecha: "2026-10-21", desde: "15:00", hasta: "17:30" },
+     { fecha: "2026-12-31", todoElDia: true },
+       { fecha: "2026-12-7", todoElDia: true },
+         { fecha: "2026-12-4", todoElDia: true },
+           { fecha: "2026-12-14", todoElDia: true },
+             { fecha: "2026-11-20", todoElDia: true },
+              { fecha: "2026-11-21", todoElDia: true },
+                { fecha: "2026-11-23", todoElDia: true },
+                  { fecha: "2026-11-24", todoElDia: true },
+                    { fecha: "2026-11-25", todoElDia: true },
+                      { fecha: "2026-10-28", todoElDia: true },
+                        { fecha: "2026-11-27", todoElDia: true },
   ],
 };
