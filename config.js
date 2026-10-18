@@ -44,5 +44,6 @@ window.CONFIG = {
 ocupado: [  
    { fecha: "2026-10-19", desde: "19:00", hasta: "20:00" },
    { fecha: "2026-10-19", desde: "19:00", hasta: "20:00" },
+     { fecha: "2026-12-15", desde: "10:00", hasta: "20:00" },
   ],
 };
