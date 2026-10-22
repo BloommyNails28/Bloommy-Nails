@@ -55,5 +55,7 @@ ocupado: [
                     { fecha: "2026-11-25", todoElDia: true },
                       { fecha: "2026-10-28", todoElDia: true },
                         { fecha: "2026-11-27", todoElDia: true },
+                        { fecha: "2026-10-24", desde: "14:00", hasta: "15:30" },
+                          { fecha: "2026-12-3", todoElDia: true },
   ],
 };
