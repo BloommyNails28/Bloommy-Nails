@@ -31,7 +31,7 @@ window.CONFIG = {
   },
 
   // Último horario de inicio posible cuando los turnos se corren (hora 24 h)
-  ultimoInicio: 20,
+  ultimoInicio: 19,
 
   // 4) CITAS CONFIRMADAS Y HORARIOS BLOQUEADOS
   //    Agrega una línea por cada cita o bloqueo. Cuando alguien se agenda,
@@ -57,5 +57,8 @@ ocupado: [
                         { fecha: "2026-11-27", todoElDia: true },
                         { fecha: "2026-10-24", desde: "14:00", hasta: "15:30" },
                           { fecha: "2026-12-3", todoElDia: true },
+                          { fecha: "2026-11-3", todoElDia: true },
+                          { fecha: "2026-11-2", todoElDia: true },
+                          { fecha: "2026-10-29", desde: "17:00", hasta: "20:00" },
   ],
 };
