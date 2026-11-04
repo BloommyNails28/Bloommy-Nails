@@ -60,5 +60,10 @@ ocupado: [
                           { fecha: "2026-11-3", todoElDia: true },
                           { fecha: "2026-11-2", todoElDia: true },
                           { fecha: "2026-10-29", desde: "17:00", hasta: "20:00" },
+                          { fecha: "2026-11-17", todoElDia: true },
+                          { fecha: "2026-11-18", todoElDia: true },
+                          { fecha: "2026-11-13", todoElDia: true },
+                          { fecha: "2026-11-30", todoElDia: true },
+                          { fecha: "2026-11-29", todoElDia: true },
   ],
 };
