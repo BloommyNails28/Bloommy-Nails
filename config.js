@@ -26,7 +26,7 @@ window.CONFIG = {
     2: [13, 15, 17, 19],
     3: [10, 15, 17, 19],
     4: [11, 13, 15, 17, 19],
-    5: [14],
+    5: [14, 16, 18],
     6: [12, 14]
   },
 
@@ -65,5 +65,10 @@ ocupado: [
                           { fecha: "2026-11-13", todoElDia: true },
                           { fecha: "2026-11-30", todoElDia: true },
                           { fecha: "2026-11-29", todoElDia: true },
+                          { fecha: "2026-11-16", todoElDia: true }
+                          { fecha: "2026-11-17", todoElDia: true }
+                          { fecha: "2026-12-6", todoElDia: true }
+                          { fecha: "2026-12-13", todoElDia: true }
+                          { fecha: "2026-11-13", desde: "17:00", hasta: "20:00" },
   ],
 };
